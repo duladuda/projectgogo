@@ -1,0 +1,57 @@
+---
+  - name: remove Java
+    yum:
+      name: java
+      state: removed
+
+  - name: install Java
+    yum:
+      name: java-1.8.0-openjdk-devel
+      state: present
+
+  # - name: Import Jenkins Key
+  #   rpm_key:
+  #      state: present
+  #      key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+  # - name: install repo for jenkins
+  #   yum_repository:
+  #     baseurl: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+  #     description: get jenkins
+  #     name: jenkins
+  #     state: present
+
+  - name: Copy Local installer for Jenkins to server
+    copy:
+      src: ~/Downloads/jenkins-2.164.1-1.1.noarch.rpm
+      dest: /tmp
+      owner: ec2-user
+
+  - name: install jenkins from tmp directory
+    yum:
+      name: /tmp/jenkins-2.164.1-1.1.noarch.rpm
+      state: present
+
+  - name: Make sure a service is running Jenkins
+    service:
+      state: started
+      name: jenkins
+      enabled: yes
+
+  - name: Output Jenkins password to register
+    command: cat /var/lib/jenkins/secrets/initialAdminPassword
+    register: myregister
+
+  - name: Print init password Jenkins
+    debug:
+      var: myregister.stdout
+
+
+
+  # - name: install jenkins
+  #   yum:
+  #     name: jenkins
+  #     state: present
+
+
+# # Jenkins Role

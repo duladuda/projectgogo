@@ -1,0 +1,12 @@
+---
+  - name: create users
+    user:
+      name: "{{item}}"
+      state: present
+    loop:
+      - Dula
+      - Aarav
+      - Jiya
+      - Bharti
+      - God
+#creates users in loop for both jenkins and webservers

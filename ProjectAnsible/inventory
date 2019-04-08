@@ -1,0 +1,8 @@
+52.210.94.105 ansible_user=ec2-user ansible_become=true
+63.33.154.248 ansible_user=ec2-user ansible_become=true
+
+[master]
+63.33.154.248
+
+[slave]
+52.210.94.105

@@ -1,0 +1,11 @@
+---
+# - hosts: slave
+#   roles:
+#     - webservers
+# - hosts: all
+#   roles:
+#     - common
+- hosts: master
+  roles:
+    - jenkins
+  # This is the playbook which calls three roles. 

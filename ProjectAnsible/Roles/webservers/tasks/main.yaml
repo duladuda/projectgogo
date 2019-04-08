@@ -1,0 +1,6 @@
+---
+  - name: install apache2
+    yum:
+      name: httpd
+      state: present
+# Webserver Role
