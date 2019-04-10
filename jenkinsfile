@@ -6,7 +6,6 @@ pipeline {
    }§
 
     stages {
-        
         stage('Terraform Init') {
             steps {
                 sh '''
@@ -39,7 +38,7 @@ pipeline {
 
         stage('Go Ansible') {
             steps {
-                echo 'Go go power rangers'
+                echo "Go go power rangers"
             }
         }
 }
