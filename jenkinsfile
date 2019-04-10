@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+   environment {
+       AWS_ACCESS_KEY_ID     = credentials("$dd_aws_access_key")
+       AWS_SECRET_ACCESS_KEY = credentials("$dd_aws_secret_key")
+   }
+
+    
+    stages {
+        stage('Dula Git Pull Down') {
+            steps {
+                git 'https://github.com/duladuda/projectgogo.git'
+                echo 'Git Pull Down'
+            }
+        }
+        
+        stage('Terraform Init') {
+            steps {
+                sh '''
+                pwd
+                ls
+                cd currentproject
+                ls
+                terraform init
+                '''
+            }}
+            
+        stage ('Terraform Plan') {
+            steps {
+                 withCredentials([string(credentialsId: 'dd_aws_access_key', 
+                 variable: 'AWS_ACCESS_KEY_ID'),
+                 string(credentialsId: 'dd_aws_secret_key', 
+                 variable: 'AWS_SECRET_ACCESS_KEY')]) 
+                 {
+       sh """
+        pwd
+        cd currentproject
+        ls
+        export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
+        export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
+        set +x
+        terraform plan
+        terraform apply -var-file=terraform.tfvars -auto-approve
+        """}}
+        }
+}
+}
