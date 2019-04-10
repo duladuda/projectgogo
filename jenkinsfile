@@ -37,9 +37,9 @@ pipeline {
         """}}
         }
 
-        stage('Dula Git Pull Down') {
+        stage('Go Ansible') {
             steps {
-                echo 'Git Pull Down'
+                echo 'Go go power rangers'
             }
         }
 }
