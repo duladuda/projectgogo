@@ -3,7 +3,7 @@ pipeline {
    environment {
        AWS_ACCESS_KEY_ID     = credentials("$dd_aws_access_key")
        AWS_SECRET_ACCESS_KEY = credentials("$dd_aws_secret_key")
-   }§
+   }
 
     stages {
         stage('Terraform Init') {
